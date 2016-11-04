@@ -6,7 +6,7 @@ import java.util.*;
  */
 public class Test {
 
-    private static Map<String, Integer> sharedMap = new HashMap<>();
+    private static final Map<String, Integer> sharedMap = new HashMap<>();
 
     public static void main(String[] args) throws IOException {
 
@@ -14,7 +14,7 @@ public class Test {
 
         Thread streamThread1 = new StreamThread("./superMassiveText.txt", sharedMap, taskStatus);
 
-        Thread streamThread2 = new StreamThread("https://getfile.dokpub.com/yandex/get/https://yadi.sk/d/7_-c0eUZy42LE", sharedMap, taskStatus);
+        Thread streamThread2 = new StreamThread("./superMassiveText.txt", sharedMap, taskStatus);
 
         Thread streamThread3 = new StreamThread("./superMassiveText.txt", sharedMap, taskStatus);
 
@@ -31,7 +31,7 @@ public class Test {
 
 
         try {
-            while (!(taskStatus.getCompleteCount() == 5)) {
+            while (!taskStatus.isComplete() && taskStatus.isException()) {
                 synchronized (sharedMap) {
                     sharedMap.wait();
                 }

@@ -8,7 +8,7 @@ import java.util.regex.Pattern;
  */
 public class StreamThread extends Thread {
     private final String link;
-    private Map<String, Integer> sharedMap;
+    private final Map<String, Integer> sharedMap;
     private TaskStatus taskStatus;
 
     public StreamThread(String link, Map<String, Integer> sharedMap, TaskStatus taskStatus) {
@@ -31,7 +31,10 @@ public class StreamThread extends Thread {
                 if (StringUtil.isRussian(str)) {
                     StringUtil.saveWords(str, sharedMap);
                     StringUtil.printStatus(str, sharedMap);
-                } else System.out.println(str + " - не русское слово");
+                } else {
+                    System.out.println("Найдено не русское слово");
+                    taskStatus.exception();
+                }
             }
             notifyMain();
         } catch (IOException e) {
