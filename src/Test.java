@@ -1,5 +1,4 @@
 import java.io.*;
-import java.net.URL;
 import java.util.*;
 import java.util.regex.Pattern;
 
@@ -8,20 +7,44 @@ import java.util.regex.Pattern;
  */
 public class Test {
 
-    private static Map<String, Integer> wordMap = new HashMap<>();
+    private static Map<String, Integer> sharedMap = new HashMap<>();
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws IOException, InterruptedException {
 
-        StringUtil stringUtil = new StringUtil();
+        Thread streamThread1 = new StreamThread("./superMassiveText.txt",sharedMap);
+
+        Thread streamThread2 = new StreamThread("https://getfile.dokpub.com/yandex/get/https://yadi.sk/d/7_-c0eUZy42LE", sharedMap);
+
+        Thread streamThread3 = new StreamThread("./superMassiveText.txt",sharedMap);
+
+        Thread streamThread4 = new StreamThread("./superMassiveText.txt",sharedMap);
+
+        Thread streamThread5 = new StreamThread("./superMassiveText.txt",sharedMap);
 
 
-//        FileInputStream in = new FileInputStream("./superMassiveText.txt");
-        InputStream in = new URL("https://getfile.dokpub.com/yandex/get/https://yadi.sk/d/7_-c0eUZy42LE").openStream();
+        streamThread1.start();
+        streamThread2.start();
+        streamThread3.start();
+        streamThread4.start();
+        streamThread5.start();
 
-//        FileInputStream inputStream = new FileInputStream();
+        Thread.sleep(20000);
+
+        for (Map.Entry<String, Integer> pair : sharedMap.entrySet()) {
+            System.out.println(pair.getKey() + " - " + pair.getValue());
+        }
+
+/*        StringUtil stringUtil = new StringUtil();
+
+        Date date = new Date();
 
 
-        Scanner scanner = new Scanner(in);
+        String url = "https://getfile.dokpub.com/yandex/get/https://yadi.sk/d/7_-c0eUZy42LE";
+        String s = "./superMassiveText.txt";
+
+        MyStream myStream = new MyStream(s);
+
+        Scanner scanner = new Scanner(myStream.getInputStream());
         scanner.useDelimiter(Pattern.compile("[^А-Яа-яa-zA-Z0-9_]+"));
 
         while (scanner.hasNext()) {
@@ -36,5 +59,9 @@ public class Test {
         for (Map.Entry<String, Integer> pair : wordMap.entrySet()) {
             System.out.println(pair.getKey() + " - " + pair.getValue());
         }
+
+        Date date1 = new Date();
+
+        System.out.println(date1.getTime() - date.getTime());*/
     }
 }
