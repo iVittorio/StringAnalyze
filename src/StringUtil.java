@@ -23,7 +23,9 @@ public class StringUtil {
     }
 
     public static void printStatus(String s, Map<String, Integer> map) {
-        System.out.println("\"" + s.toLowerCase() + "\", количество вхождений: " + map.get(s.toLowerCase()));
+        synchronized (map) {
+            System.out.println("\"" + s.toLowerCase() + "\", количество вхождений: " + map.get(s.toLowerCase()));
+        }
     }
 
 

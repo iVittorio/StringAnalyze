@@ -26,20 +26,20 @@ public class StreamThread extends Thread {
         try (Scanner scanner = new Scanner(myStream.getInputStream())) {
             scanner.useDelimiter(Pattern.compile("[^А-Яа-яa-zA-Z0-9_]+"));
 
-            while (scanner.hasNext() && !taskStatus.isException()) {
+            while (scanner.hasNext() && !taskStatus.isException() && !isInterrupted()) {
                 String str = scanner.next();
                 if (StringUtil.isRussian(str)) {
                     StringUtil.saveWords(str, sharedMap);
                     StringUtil.printStatus(str, sharedMap);
                 } else {
-                    System.out.println("Найдено не русское слово");
+                    System.out.println("ОШИБКА! Текст содержит иннострные слова!");
                     taskStatus.exception();
                 }
             }
-            notifyMain();
         } catch (IOException e) {
             System.out.println("Проблема с файлом");
         }
+        notifyMain();
     }
 
     private void notifyMain() {

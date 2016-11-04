@@ -26,6 +26,6 @@ public class TaskStatus {
         isException = true;
     }
     public boolean isComplete(){
-        return countTask == countTask;
+        return countTask == completeCount;
     }
 }
