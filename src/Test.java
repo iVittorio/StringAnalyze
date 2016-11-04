@@ -1,6 +1,5 @@
 import java.io.*;
 import java.util.*;
-import java.util.regex.Pattern;
 
 /**
  * Created by i.viktor on 02/11/2016.
@@ -9,17 +8,19 @@ public class Test {
 
     private static Map<String, Integer> sharedMap = new HashMap<>();
 
-    public static void main(String[] args) throws IOException, InterruptedException {
+    public static void main(String[] args) throws IOException {
 
-        Thread streamThread1 = new StreamThread("./superMassiveText.txt",sharedMap);
+        TaskStatus taskStatus = new TaskStatus(5);
 
-        Thread streamThread2 = new StreamThread("https://getfile.dokpub.com/yandex/get/https://yadi.sk/d/7_-c0eUZy42LE", sharedMap);
+        Thread streamThread1 = new StreamThread("./superMassiveText.txt", sharedMap, taskStatus);
 
-        Thread streamThread3 = new StreamThread("./superMassiveText.txt",sharedMap);
+        Thread streamThread2 = new StreamThread("https://getfile.dokpub.com/yandex/get/https://yadi.sk/d/7_-c0eUZy42LE", sharedMap, taskStatus);
 
-        Thread streamThread4 = new StreamThread("./superMassiveText.txt",sharedMap);
+        Thread streamThread3 = new StreamThread("./superMassiveText.txt", sharedMap, taskStatus);
 
-        Thread streamThread5 = new StreamThread("./superMassiveText.txt",sharedMap);
+        Thread streamThread4 = new StreamThread("./superMassiveText.txt", sharedMap, taskStatus);
+
+        Thread streamThread5 = new StreamThread("./superMassiveText.txt", sharedMap, taskStatus);
 
 
         streamThread1.start();
@@ -28,7 +29,17 @@ public class Test {
         streamThread4.start();
         streamThread5.start();
 
-        Thread.sleep(20000);
+
+        try {
+            while (!(taskStatus.getCompleteCount() == 5)) {
+                synchronized (sharedMap) {
+                    sharedMap.wait();
+                }
+            }
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+
 
         for (Map.Entry<String, Integer> pair : sharedMap.entrySet()) {
             System.out.println(pair.getKey() + " - " + pair.getValue());
