@@ -4,7 +4,7 @@ import java.util.*;
 /**
  * Created by i.viktor on 02/11/2016.
  */
-public class Test {
+public class First {
 
     private static final Map<String, Integer> sharedMap = new HashMap<>();
 
@@ -32,7 +32,7 @@ public class Test {
     }
 
     private static void printResult() {
-        System.out.println("Результат работы программы:\n");
+        System.out.println("\nРезультат работы программы:\n");
 
         for (Map.Entry<String, Integer> pair : sharedMap.entrySet()) {
             System.out.println(pair.getKey() + " - " + pair.getValue());

@@ -3,6 +3,8 @@ import java.util.Map;
 import java.util.Scanner;
 import java.util.regex.Pattern;
 
+import static regex.RegexConst.*;
+
 /**
  * Created by i.viktor on 04/11/2016.
  */
@@ -24,7 +26,7 @@ public class StreamThread extends Thread {
         MyStream myStream = new MyStream(link);
 
         try (Scanner scanner = new Scanner(myStream.getInputStream())) {
-            scanner.useDelimiter(Pattern.compile("[^А-Яа-яa-zA-Z0-9_]+"));
+            scanner.useDelimiter(Pattern.compile(DELIMITER_REGEX));
 
             while (scanner.hasNext() && !taskStatus.isException() && !isInterrupted()) {
                 String str = scanner.next();

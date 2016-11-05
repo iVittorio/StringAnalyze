@@ -1,7 +1,7 @@
-import java.io.BufferedReader;
-import java.util.Arrays;
-import java.util.List;
+
 import java.util.Map;
+
+import static regex.RegexConst.*;
 
 /**
  * Created by i.viktor on 02/11/2016.
@@ -9,7 +9,7 @@ import java.util.Map;
 public class StringUtil {
 
     public static boolean isRussian(String s) {
-        return s.matches("[А-Яа-я0-9_]+");
+        return s.matches(RUSSIAN_WORD_REGEX);
     }
 
     public static void saveWords(String s, Map<String, Integer> map) {
