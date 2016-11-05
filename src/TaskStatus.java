@@ -20,10 +20,6 @@ public class TaskStatus {
         this.countTask = countTask;
     }
 
-    public int getCompleteCount() {
-        return completeCount;
-    }
-
     public boolean isException() {
         return isException;
     }
