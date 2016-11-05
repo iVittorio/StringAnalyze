@@ -8,11 +8,11 @@ import static regex.RegexConst.*;
 /**
  * Created by i.viktor on 04/11/2016.
  */
-public class MyStream {
+public class ResourceStream {
     private final String resourceName;
     private LinkType type;
 
-    public MyStream(String resourceName) {
+    public ResourceStream(String resourceName) {
         this.resourceName = resourceName;
     }
 

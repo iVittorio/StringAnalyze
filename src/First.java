@@ -28,6 +28,7 @@ public class First {
         }
         if (!taskStatus.isException())
             printResult();
+        else System.out.println(taskStatus.getException().getCause());
 
     }
 

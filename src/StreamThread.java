@@ -22,10 +22,14 @@ public class StreamThread extends Thread {
 
     @Override
     public void run() {
+        startTask(link);
+        completeTask();
+    }
 
-        MyStream myStream = new MyStream(link);
+    public void startTask(String link) {
+        ResourceStream resourceStream = new ResourceStream(link);
 
-        try (Scanner scanner = new Scanner(myStream.getInputStream())) {
+        try (Scanner scanner = new Scanner(resourceStream.getInputStream())) {
             scanner.useDelimiter(Pattern.compile(DELIMITER_REGEX));
 
             while (scanner.hasNext() && !taskStatus.isException() && !isInterrupted()) {
@@ -34,17 +38,16 @@ public class StreamThread extends Thread {
                     StringUtil.saveWords(str, sharedMap);
                     StringUtil.printStatus(str, sharedMap);
                 } else {
-                    System.out.println("ОШИБКА! Текст содержит иннострные слова!");
-                    taskStatus.exception();
+                    taskStatus.setException(new RuntimeException("ОШИБКА! Текст содержит иннострные слова!"));
                 }
             }
         } catch (IOException e) {
-            System.out.println("Проблема с файлом");
+            taskStatus.setException(new RuntimeException("Проблема с файлом", e));
         }
-        notifyMain();
+
     }
 
-    private void notifyMain() {
+    private void completeTask() {
         synchronized (sharedMap) {
             taskStatus.taskIncrement();
             if (taskStatus.isComplete()) {

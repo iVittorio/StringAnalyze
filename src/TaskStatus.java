@@ -5,6 +5,16 @@ public class TaskStatus {
     private volatile int completeCount = 0;
     private volatile boolean isException = false;
     private final int countTask;
+    private Exception exception;
+
+    public Exception getException() {
+        return exception;
+    }
+
+    public void setException(Exception exception) {
+        this.isException = true;
+        this.exception = exception;
+    }
 
     public TaskStatus(int countTask) {
         this.countTask = countTask;
@@ -20,10 +30,6 @@ public class TaskStatus {
 
     public synchronized void taskIncrement() {
         completeCount++;
-    }
-
-    public void exception() {
-        isException = true;
     }
 
     public boolean isComplete() {
