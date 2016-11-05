@@ -1,7 +1,7 @@
 
 import java.util.Map;
 
-import static regex.RegexConst.*;
+import static constants.Const.*;
 
 /**
  * Created by i.viktor on 02/11/2016.

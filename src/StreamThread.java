@@ -3,7 +3,7 @@ import java.util.Map;
 import java.util.Scanner;
 import java.util.regex.Pattern;
 
-import static regex.RegexConst.*;
+import static constants.Const.*;
 
 /**
  * Created by i.viktor on 04/11/2016.
@@ -38,11 +38,11 @@ public class StreamThread extends Thread {
                     StringUtil.saveWords(str, sharedMap);
                     StringUtil.printStatus(str, sharedMap);
                 } else {
-                    taskStatus.setException(new RuntimeException("ОШИБКА! Текст содержит иннострные слова!"));
+                    taskStatus.setException(new RuntimeException(FIND_FOREIGN_LANG_MESSAGE));
                 }
             }
         } catch (IOException e) {
-            taskStatus.setException(new RuntimeException("Проблема с файлом", e));
+            taskStatus.setException(new RuntimeException(NO_SUCH_FILE_MESSAGE, e));
         }
 
     }

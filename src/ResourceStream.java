@@ -3,7 +3,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
 
-import static regex.RegexConst.*;
+import static constants.Const.*;
 
 /**
  * Created by i.viktor on 04/11/2016.
