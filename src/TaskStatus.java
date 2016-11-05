@@ -5,7 +5,7 @@ public class TaskStatus {
     private volatile int completeCount = 0;
     private volatile boolean isException = false;
     private final int countTask;
-    private Exception exception;
+    private volatile Exception exception;
 
     public Exception getException() {
         return exception;
