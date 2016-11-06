@@ -38,11 +38,11 @@ public class StreamThread extends Thread {
                     StringUtil.saveWords(str, sharedMap);
                     StringUtil.printStatus(str, sharedMap);
                 } else {
-                    taskStatus.setException(new RuntimeException(FIND_FOREIGN_LANG_MESSAGE));
+                    taskStatus.setException(new RuntimeException(FIND_FOREIGN_LANG_MESSAGE + link));
                 }
             }
         } catch (IOException e) {
-            taskStatus.setException(new RuntimeException(NO_SUCH_FILE_MESSAGE, e));
+            taskStatus.setException(new RuntimeException(NO_SUCH_FILE_MESSAGE + link, e));
         }
 
     }

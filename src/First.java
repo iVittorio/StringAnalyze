@@ -35,7 +35,7 @@ public class First {
     }
 
     private static void printResult() {
-        System.out.println("\nРезультат работы программы:\n");
+        System.out.println("\nРЕЗУЛЬТАТ РАБОТЫ ПРОГРАММЫ:\n");
 
         for (Map.Entry<String, Integer> pair : sharedMap.entrySet()) {
             System.out.printf(RESULT_TEMPLATE, pair.getKey(), pair.getValue());
