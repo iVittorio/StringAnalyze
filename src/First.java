@@ -1,6 +1,8 @@
 import java.io.*;
 import java.util.*;
 
+import static constants.Const.*;
+
 /**
  * Created by i.viktor on 02/11/2016.
  */
@@ -36,7 +38,7 @@ public class First {
         System.out.println("\nРезультат работы программы:\n");
 
         for (Map.Entry<String, Integer> pair : sharedMap.entrySet()) {
-            System.out.println(pair.getKey() + " - " + pair.getValue());
+            System.out.printf(RESULT_TEMPLATE, pair.getKey(), pair.getValue());
         }
     }
 }

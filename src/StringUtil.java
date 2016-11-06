@@ -24,7 +24,7 @@ public class StringUtil {
 
     public static void printStatus(String s, Map<String, Integer> map) {
         synchronized (map) {
-            System.out.println("\"" + s.toLowerCase() + "\", количество вхождений: " + map.get(s.toLowerCase()));
+            System.out.printf(STATUS_TEMPLATE, s.toLowerCase(), map.get(s.toLowerCase()));
         }
     }
 

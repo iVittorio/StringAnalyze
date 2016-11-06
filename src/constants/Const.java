@@ -9,5 +9,7 @@ public class Const {
     public static final String RUSSIAN_WORD_REGEX = "[А-Яа-я0-9_]+";
     public static final String NO_SUCH_FILE_MESSAGE = "ОШИБКА! Файл не найден";
     public static final String FIND_FOREIGN_LANG_MESSAGE = "ОШИБКА! Текст содержит иннострные слова!";
+    public static final String STATUS_TEMPLATE = "%-15.15s количество вхождений: %8d%n";
+    public static final String RESULT_TEMPLATE = "%-15.15s встретилось %8d раз%n";
 
 }
