@@ -8,9 +8,9 @@ import static constants.Const.*;
  */
 public class Main {
 
-    private static final Map<String, Integer> sharedMap = new HashMap<>();
-
     public static void main(String[] args) throws IOException, InterruptedException {
+
+        Map<String, Integer> sharedMap = new HashMap<>();
 
         TaskStatus taskStatus = new TaskStatus(args.length);
 
@@ -29,12 +29,12 @@ public class Main {
             e.printStackTrace();
         }
         if (!taskStatus.isException())
-            printResult();
+            printResult(sharedMap);
         else System.out.println(taskStatus.getException().getMessage());
 
     }
 
-    private static void printResult() {
+    private static void printResult(Map<String, Integer> sharedMap) {
         System.out.println("\nРЕЗУЛЬТАТ РАБОТЫ ПРОГРАММЫ:\n");
 
         for (Map.Entry<String, Integer> pair : sharedMap.entrySet()) {

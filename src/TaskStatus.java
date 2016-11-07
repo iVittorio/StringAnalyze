@@ -28,7 +28,7 @@ public class TaskStatus {
         completeCount++;
     }
 
-    public boolean isComplete() {
+    public synchronized boolean isComplete() {
         return countTask == completeCount;
     }
 }
