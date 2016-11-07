@@ -6,7 +6,7 @@ import static constants.Const.*;
 /**
  * Created by i.viktor on 02/11/2016.
  */
-public class First {
+public class StringAnalyzer {
 
     private static final Map<String, Integer> sharedMap = new HashMap<>();
 
