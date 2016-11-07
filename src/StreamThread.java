@@ -34,11 +34,11 @@ public class StreamThread extends Thread {
 
             while (scanner.hasNext() && !taskStatus.isException() && !isInterrupted()) {
                 String str = scanner.next();
-                if (StringUtil.isRussian(str)) {
+                if (StringUtil.isCyrillic(str)) {
                     StringUtil.saveWords(str, sharedMap);
-                    StringUtil.printStatus(str, sharedMap);
                 } else {
                     taskStatus.setException(new RuntimeException(FIND_FOREIGN_LANG_MESSAGE + link));
+                    completeTask();
                 }
             }
         } catch (IOException e) {

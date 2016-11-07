@@ -21,6 +21,13 @@ public class ResourceStream {
         else type = LinkType.Local_File;
     }
 
+    /**
+     * Returns InputStream depending on the name. If name stars with "word://" return InputStream
+     * from the URL connection, else return FileInputStream.
+     *
+     * @return an input stream for reading from the URL connection or from the file.
+     * @throws IOException if an I/O exception occurs.
+     */
     public InputStream getInputStream() throws IOException {
         validateLink();
         switch (type) {
