@@ -37,6 +37,12 @@ public class StringUtil {
 
     }
 
+    /**
+     * Prints current status numbers occurrences of strings
+     *
+     * @param s   the string to print
+     * @param map the map contains numbers occurrences of strings
+     */
     private static void printStatus(String s, Map<String, Integer> map) {
         synchronized (map) {
             System.out.printf(STATUS_TEMPLATE, s.toLowerCase(), map.get(s.toLowerCase()));
