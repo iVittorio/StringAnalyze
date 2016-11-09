@@ -1,9 +1,11 @@
+package ru.innopolise.uni.stringanalyze;
+
 import java.io.IOException;
 import java.util.Map;
 import java.util.Scanner;
 import java.util.regex.Pattern;
 
-import static constants.Const.*;
+import static ru.innopolise.uni.stringanalyze.constants.Const.*;
 
 /**
  * Created by i.viktor on 04/11/2016.

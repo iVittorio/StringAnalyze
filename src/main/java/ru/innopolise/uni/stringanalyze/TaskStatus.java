@@ -1,3 +1,5 @@
+package ru.innopolise.uni.stringanalyze;
+
 /**
  * Created by i.viktor on 04/11/2016.
  */
@@ -23,7 +25,7 @@ public class TaskStatus {
     }
 
     /**
-     * Constructs a new TaskStatus with number tasks
+     * Constructs a new ru.innopolise.uni.stringanalyze.TaskStatus with number tasks
      *
      * @param countTask numbers of parameters(files/sources) at the start program
      */

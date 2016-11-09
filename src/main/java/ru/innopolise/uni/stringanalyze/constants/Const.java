@@ -1,4 +1,4 @@
-package constants;
+package ru.innopolise.uni.stringanalyze.constants;
 
 /**
  * Created by i.viktor on 05/11/2016.
