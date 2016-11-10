@@ -9,5 +9,5 @@ public class Const {
     public static final String CYRILLIC_CHAR_REGEX = "[А-Яа-яёЁ0-9_]+";
     public static final String NO_SUCH_FILE_MESSAGE = "ОШИБКА! Файл не найден ";
     public static final String FIND_FOREIGN_LANG_MESSAGE = "ОШИБКА! Текст содержит иннострные слова! ";
-    public static final String STATUS_TEMPLATE = "{} количество вхождений: {}";
+    public static final String STATUS_TEMPLATE = "\"{}\" - количество вхождений: {}";
 }
