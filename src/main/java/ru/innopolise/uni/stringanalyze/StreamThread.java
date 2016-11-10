@@ -32,6 +32,14 @@ public class StreamThread extends Thread {
         completeTask();
     }
 
+    /**
+     * Starts task which reads words from URL or File, if throw IOException
+     * writes to the TaskStatus. If text have doesn't cyrillic symbols creates
+     * new RuntimeException with message "ОШИБКА! Текст содержит иннострные слова! [file_name]"
+     * and writes to the  TaskStatus
+     *
+     * @param link to URL or File on the target text
+     */
     public void startTask(String link) {
         ResourceStream resourceStream = new ResourceStream(link);
 
@@ -55,6 +63,9 @@ public class StreamThread extends Thread {
 
     }
 
+    /**
+     * Method notify main thread about complete task and increment completed count in object TaskStatus
+     */
     private void completeTask() {
         synchronized (sharedMap) {
             taskStatus.taskIncrement();
