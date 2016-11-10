@@ -1,5 +1,8 @@
 package ru.innopolise.uni.stringanalyze;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.io.IOException;
 import java.util.Map;
 import java.util.Scanner;
@@ -14,6 +17,7 @@ public class StreamThread extends Thread {
     private final String link;
     private final Map<String, Integer> sharedMap;
     private TaskStatus taskStatus;
+    private Logger logger = LoggerFactory.getLogger(StreamThread.class);
 
     public StreamThread(String link, Map<String, Integer> sharedMap, TaskStatus taskStatus) {
         this.link = link;
@@ -40,11 +44,13 @@ public class StreamThread extends Thread {
                     StringUtil.saveWords(str, sharedMap);
                 } else {
                     taskStatus.setException(new RuntimeException(FIND_FOREIGN_LANG_MESSAGE + link));
+                    logger.error(FIND_FOREIGN_LANG_MESSAGE + link);
                     completeTask();
                 }
             }
         } catch (IOException e) {
             taskStatus.setException(new RuntimeException(NO_SUCH_FILE_MESSAGE + link, e));
+            logger.error(NO_SUCH_FILE_MESSAGE + link, e);
         }
 
     }

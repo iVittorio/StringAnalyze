@@ -1,5 +1,8 @@
 package ru.innopolise.uni.stringanalyze;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.util.Map;
 
 import static ru.innopolise.uni.stringanalyze.constants.Const.*;
@@ -8,6 +11,7 @@ import static ru.innopolise.uni.stringanalyze.constants.Const.*;
  * Created by i.viktor on 02/11/2016.
  */
 public class StringUtil {
+    private static Logger logger = LoggerFactory.getLogger(StringUtil.class);
 
     /**
      * Checks if the string contains Cyrillic
@@ -45,9 +49,7 @@ public class StringUtil {
      * @param map the map contains numbers occurrences of strings
      */
     private static void printStatus(String s, Map<String, Integer> map) {
-        synchronized (map) {
-            System.out.printf(STATUS_TEMPLATE, s.toLowerCase(), map.get(s.toLowerCase()));
-        }
+        logger.info(STATUS_TEMPLATE, s.toLowerCase(), map.get(s.toLowerCase()));
     }
 
 
