@@ -6,8 +6,6 @@ import org.slf4j.LoggerFactory;
 import java.io.*;
 import java.util.*;
 
-import static ru.innopolise.uni.stringanalyze.constants.Const.*;
-
 /**
  * Created by i.viktor on 02/11/2016.
  */

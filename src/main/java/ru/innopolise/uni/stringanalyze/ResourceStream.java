@@ -23,6 +23,7 @@ public class ResourceStream {
         else type = LinkType.Local_File;
     }
 
+
     /**
      * Returns InputStream depending on the name. If name stars with "word://" return InputStream
      * from the URL connection, else return FileInputStream.
@@ -40,7 +41,7 @@ public class ResourceStream {
             case Local_File:
                 return new FileInputStream(resourceName);
             default:
-                return null;
+                throw new IOException("Wrong file name");
         }
     }
 }

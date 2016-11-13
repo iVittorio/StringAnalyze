@@ -25,6 +25,13 @@ public class TaskStatus {
     }
 
     /**
+     * @return count started tasks
+     */
+    public int getCountTask() {
+        return countTask;
+    }
+
+    /**
      * Constructs a new ru.innopolise.uni.stringanalyze.TaskStatus with number tasks
      *
      * @param countTask numbers of parameters(files/sources) at the start program
@@ -43,7 +50,7 @@ public class TaskStatus {
     /**
      * If the task is finished, increment completeCount parameter.
      */
-    public synchronized void taskIncrement() {
+    public synchronized void completeTaskIncrement() {
         completeCount++;
     }
 
@@ -52,5 +59,12 @@ public class TaskStatus {
      */
     public synchronized boolean isComplete() {
         return countTask == completeCount;
+    }
+
+    /**
+     * @return number of complete tasks
+     */
+    public int getCompleteCount() {
+        return completeCount;
     }
 }

@@ -16,19 +16,24 @@ import static ru.innopolise.uni.stringanalyze.constants.Const.*;
 public class StreamThread extends Thread {
     private final String link;
     private final Map<String, Integer> sharedMap;
+    private final StringUtil stringUtil = new StringUtil();
+    private final ResourceStream resourceStream;
     private TaskStatus taskStatus;
     private Logger logger = LoggerFactory.getLogger(StreamThread.class);
+    private Scanner scanner;
+
 
     public StreamThread(String link, Map<String, Integer> sharedMap, TaskStatus taskStatus) {
         this.link = link;
         this.sharedMap = sharedMap;
         this.taskStatus = taskStatus;
+        this.resourceStream = new ResourceStream(link);
     }
 
 
     @Override
     public void run() {
-        startTask(link);
+        startTask();
         completeTask();
     }
 
@@ -37,19 +42,16 @@ public class StreamThread extends Thread {
      * writes to the TaskStatus. If text have doesn't cyrillic symbols creates
      * new RuntimeException with message "ОШИБКА! Текст содержит иннострные слова! [file_name]"
      * and writes to the  TaskStatus
-     *
-     * @param link to URL or File on the target text
      */
-    public void startTask(String link) {
-        ResourceStream resourceStream = new ResourceStream(link);
+    public void startTask() {
 
         try (Scanner scanner = new Scanner(resourceStream.getInputStream())) {
             scanner.useDelimiter(Pattern.compile(DELIMITER_REGEX));
 
             while (scanner.hasNext() && !taskStatus.isException() && !isInterrupted()) {
                 String str = scanner.next();
-                if (StringUtil.isCyrillic(str)) {
-                    StringUtil.saveWords(str, sharedMap);
+                if (stringUtil.isCyrillic(str)) {
+                    stringUtil.saveWords(str, sharedMap);
                 } else {
                     taskStatus.setException(new RuntimeException(FIND_FOREIGN_LANG_MESSAGE + link));
                     logger.error(FIND_FOREIGN_LANG_MESSAGE + link);
@@ -68,7 +70,7 @@ public class StreamThread extends Thread {
      */
     private void completeTask() {
         synchronized (sharedMap) {
-            taskStatus.taskIncrement();
+            taskStatus.completeTaskIncrement();
             if (taskStatus.isComplete()) {
                 sharedMap.notifyAll();
             }
