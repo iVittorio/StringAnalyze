@@ -5,6 +5,7 @@ import org.slf4j.LoggerFactory;
 
 import java.io.*;
 import java.util.*;
+import java.util.concurrent.*;
 
 /**
  * Created by i.viktor on 02/11/2016.
@@ -12,17 +13,37 @@ import java.util.*;
 public class Main {
     private static Logger logger = LoggerFactory.getLogger(Main.class);
 
-    public static void main(String[] args) throws IOException, InterruptedException {
+    public static void main(String[] args) {
 
-        Map<String, Integer> sharedMap = new HashMap<>();
+//        Map<String, Integer> sharedMap = new HashMap<>();
 
-        TaskStatus taskStatus = new TaskStatus(args.length);
+        Map<String, Integer> sharedMap = new ConcurrentHashMap<>();
+
+        CountDownLatch latch = new CountDownLatch(args.length);
+
+        TaskStatus taskStatus = new TaskStatus();
+
+        taskStatus.setLatch(latch);
+
+        ExecutorService service = Executors.newFixedThreadPool(5);
 
         for (int i = 0; i < args.length; i++) {
-            new StreamThread(args[i], sharedMap, taskStatus).start();
+            service.execute(new StreamThread(args[i], sharedMap, taskStatus));
+//            new StreamThread(args[i], sharedMap, taskStatus).start();
+        }
+
+        service.shutdown();
+
+        try {
+            latch.await();
+            logger.info("The program was ended without error");
+        } catch (InterruptedException e) {
+            logger.error(e.getMessage(), e);
         }
 
 
+
+/*
         try {
             while (!taskStatus.isComplete() && !taskStatus.isException()) {
                 synchronized (sharedMap) {
@@ -31,6 +52,6 @@ public class Main {
             }
         } catch (InterruptedException e) {
             logger.error(e.getMessage(), e);
-        }
+        }*/
     }
 }

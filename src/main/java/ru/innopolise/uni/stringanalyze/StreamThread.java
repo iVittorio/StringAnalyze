@@ -6,6 +6,7 @@ import org.slf4j.LoggerFactory;
 import java.io.IOException;
 import java.util.Map;
 import java.util.Scanner;
+import java.util.concurrent.CountDownLatch;
 import java.util.regex.Pattern;
 
 import static ru.innopolise.uni.stringanalyze.constants.Const.*;
@@ -33,8 +34,11 @@ public class StreamThread extends Thread {
 
     @Override
     public void run() {
+        CountDownLatch latch = taskStatus.getLatch();
         startTask();
-        completeTask();
+        latch.countDown();
+
+//        completeTask();
     }
 
     /**
@@ -55,7 +59,10 @@ public class StreamThread extends Thread {
                 } else {
                     taskStatus.setException(new RuntimeException(FIND_FOREIGN_LANG_MESSAGE + link));
                     logger.error(FIND_FOREIGN_LANG_MESSAGE + link);
-                    completeTask();
+                    CountDownLatch latch = taskStatus.getLatch();
+
+                    latch.countDown();
+//                    completeTask();
                 }
             }
         } catch (IOException e) {
@@ -64,10 +71,10 @@ public class StreamThread extends Thread {
         }
 
     }
-
-    /**
+/*
+    *//**
      * Method notify main thread about complete task and increment completed count in object TaskStatus
-     */
+     *//*
     private void completeTask() {
         synchronized (sharedMap) {
             taskStatus.completeTaskIncrement();
@@ -75,5 +82,5 @@ public class StreamThread extends Thread {
                 sharedMap.notifyAll();
             }
         }
-    }
+    }*/
 }

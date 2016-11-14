@@ -1,13 +1,24 @@
 package ru.innopolise.uni.stringanalyze;
 
+import java.util.concurrent.CountDownLatch;
+
 /**
  * Created by i.viktor on 04/11/2016.
  */
 public class TaskStatus {
-    private volatile int completeCount = 0;
+    //    private volatile int completeCount = 0;
     private volatile boolean isException = false;
-    private final int countTask;
+    //    private final int countTask;
     private volatile Exception exception;
+    private CountDownLatch latch;
+
+    public CountDownLatch getLatch() {
+        return latch;
+    }
+
+    public void setLatch(CountDownLatch latch) {
+        this.latch = latch;
+    }
 
     /**
      * @return exception
@@ -24,21 +35,21 @@ public class TaskStatus {
         this.exception = exception;
     }
 
-    /**
+/*    *//**
      * @return count started tasks
-     */
+     *//*
     public int getCountTask() {
         return countTask;
-    }
-
-    /**
+    }*/
+/*
+    *//**
      * Constructs a new ru.innopolise.uni.stringanalyze.TaskStatus with number tasks
      *
      * @param countTask numbers of parameters(files/sources) at the start program
-     */
+     *//*
     public TaskStatus(int countTask) {
         this.countTask = countTask;
-    }
+    }*/
 
     /**
      * @return true if the task has an error, false otherwise;
@@ -46,25 +57,25 @@ public class TaskStatus {
     public boolean isException() {
         return isException;
     }
-
-    /**
+/*
+    *//**
      * If the task is finished, increment completeCount parameter.
-     */
+     *//*
     public synchronized void completeTaskIncrement() {
         completeCount++;
     }
 
-    /**
+    *//**
      * @return true if parameter countTask equals completeCount, false otherwise
-     */
+     *//*
     public synchronized boolean isComplete() {
         return countTask == completeCount;
     }
 
-    /**
+    *//**
      * @return number of complete tasks
-     */
+     *//*
     public int getCompleteCount() {
         return completeCount;
-    }
+    }*/
 }

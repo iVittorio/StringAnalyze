@@ -14,18 +14,18 @@ public class TaskStatusTest {
     private Logger logger = LoggerFactory.getLogger(TaskStatusTest.class);
     private TaskStatus taskStatus;
 
-
+/*
     @Before
     public void before() {
         taskStatus = new TaskStatus(5);
-    }
+    }*/
 
-    @Test
+/*    @Test
     public void testGetCountTask() {
         logger.info("Test method getCountTask");
         int result = taskStatus.getCountTask();
         assertTrue("Count tasks", result == 5);
-    }
+    }*/
 
     @Test
     public void testException() {
@@ -38,7 +38,7 @@ public class TaskStatusTest {
         assertTrue("Is exception", result);
         assertNotNull("Exception sets", resultException);
     }
-
+/*
     @Test
     public void testCompleteTask() {
         logger.info("Test method completeTaskIncrement and getCompleteCount");
@@ -46,5 +46,5 @@ public class TaskStatusTest {
         taskStatus.completeTaskIncrement();
         int result = taskStatus.getCompleteCount();
         assertTrue("Complete tasks after incrementing", result == 1);
-    }
+    }*/
 }

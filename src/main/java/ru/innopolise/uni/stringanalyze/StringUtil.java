@@ -31,14 +31,12 @@ public class StringUtil {
      * @param map the map to save a string and count these lines
      */
     public void saveWords(String s, Map<String, Integer> map) {
-        synchronized (map) {
-            String lowerCase = s.toLowerCase();
-            if (map.containsKey(lowerCase))
-                map.put(lowerCase, map.get(lowerCase) + 1);
-            else map.put(lowerCase, 1);
+        String lowerCase = s.toLowerCase();
+        if (map.containsKey(lowerCase))
+            map.put(lowerCase, map.get(lowerCase) + 1);
+        else map.put(lowerCase, 1);
 
-            printStatus(lowerCase, map);
-        }
+        printStatus(lowerCase, map);
 
     }
 
