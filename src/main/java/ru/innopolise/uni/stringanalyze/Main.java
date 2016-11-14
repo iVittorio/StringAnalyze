@@ -3,7 +3,6 @@ package ru.innopolise.uni.stringanalyze;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.*;
 import java.util.*;
 import java.util.concurrent.*;
 
@@ -15,7 +14,7 @@ public class Main {
 
     public static void main(String[] args) {
 
-//        Map<String, Integer> sharedMap = new HashMap<>();
+        long startTime = System.nanoTime();
 
         Map<String, Integer> sharedMap = new ConcurrentHashMap<>();
 
@@ -29,29 +28,18 @@ public class Main {
 
         for (int i = 0; i < args.length; i++) {
             service.execute(new StreamThread(args[i], sharedMap, taskStatus));
-//            new StreamThread(args[i], sharedMap, taskStatus).start();
         }
 
         service.shutdown();
 
         try {
             latch.await();
-            logger.info("The program was ended without error");
+            long endTime = System.nanoTime();
+            logger.info("The program was ended without error. Time of working: " + (endTime - startTime) +" ns");
         } catch (InterruptedException e) {
             logger.error(e.getMessage(), e);
         }
 
 
-
-/*
-        try {
-            while (!taskStatus.isComplete() && !taskStatus.isException()) {
-                synchronized (sharedMap) {
-                    sharedMap.wait();
-                }
-            }
-        } catch (InterruptedException e) {
-            logger.error(e.getMessage(), e);
-        }*/
     }
 }
